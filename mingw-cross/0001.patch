@@ -1,0 +1,23 @@
+diff --git a/src/windeployqt/main.cpp b/src/windeployqt/main.cpp
+index d0070747..df7ace90 100644
+--- a/src/windeployqt/main.cpp
++++ b/src/windeployqt/main.cpp
+@@ -1091,13 +1091,17 @@ static QStringList compilerRunTimeLibs(Platform platform, bool isDebug, unsigned
+     QStringList result;
+     switch (platform) {
+     case WindowsDesktopMinGW: { // MinGW: Add runtime libraries
+-        static const char *minGwRuntimes[] = {"*gcc_", "*stdc++", "*winpthread"};
++      static const char *minGwRuntimes[] = {"*gcc_", "*stdc++", "*winpthread", "libssp*"};
++#ifdef Q_OS_WIN
+         const QString gcc = findInPath(QStringLiteral("g++.exe"));
+         if (gcc.isEmpty()) {
+             std::wcerr << "Warning: Cannot find GCC installation directory. g++.exe must be in the path.\n";
+             break;
+         }
+         const QString binPath = QFileInfo(gcc).absolutePath();
++#else
++	const QString binPath = QStringLiteral("/usr/x86_64-w64-mingw32/bin");
++#endif
+         QStringList filters;
+         const QString suffix = QLatin1Char('*') + sharedLibrarySuffix(platform);
+         for (auto minGwRuntime : minGwRuntimes)

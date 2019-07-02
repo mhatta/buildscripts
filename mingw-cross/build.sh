@@ -7,7 +7,7 @@ BUILD_OUTPUT=`pwd`/output
 cd $ROOT_SRC
 
 # Ricochet
-test -e ricochet || git clone https://github.com/ricochet-im/ricochet.git
+test -e ricochet || git clone https://github.com/mhatta/ricochet.git
 cd ricochet
 git clean -dfx .
 
@@ -40,7 +40,9 @@ cp ${BUILD_OUTPUT}/ricochet.exe .
 cp ${BUILD_OUTPUT}/tor.exe .
 cp ../../../packaging/installer/* ../../../icons/ricochet.ico ../../../LICENSE .
 mkdir translation
-cp -r ../../../translation/{inno,installer_*.isl} translation
+#cp -r ../../../translation/{inno,installer_*.isl} translation
+cp -r ../../../translation/inno translation
+cp -r ../../../translation/installer_*.isl translation
 ${ROOT_LIB}/qt5/bin/windeployqt --qmldir ../../../src/ui/qml --dir Qt ricochet.exe
 test -e Qt/qmltooling && rm -r Qt/qmltooling
 test -e Qt/imageformats && rm -r Qt/imageformats

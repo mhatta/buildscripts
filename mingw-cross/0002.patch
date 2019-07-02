@@ -1,0 +1,61 @@
+diff --git a/src/shared/winutils/utils.cpp b/src/shared/winutils/utils.cpp
+index 00a20543..2572ea4a 100644
+--- a/src/shared/winutils/utils.cpp
++++ b/src/shared/winutils/utils.cpp
+@@ -970,11 +970,52 @@ QString findD3dCompiler(Platform platform, const QString &qtBinDir, unsigned wor
+ 
+ #else // Q_OS_WIN
+ 
+-bool readPeExecutable(const QString &, QString *errorMessage,
+-                      QStringList *, unsigned *, bool *, bool, unsigned short *)
++bool readPeExecutable(const QString &peExecutableFileName, QString *errorMessage,
++                      QStringList *dependentLibrariesIn, unsigned *wordSizeIn,
++                      bool *isDebugIn, bool isMinGW, unsigned short *machineArchIn)
+ {
+-    *errorMessage = QStringLiteral("Not implemented.");
+-    return false;
++    // XXX unsafe shell
++    FILE *f = popen(QStringLiteral("objdump -p %1 | grep 'DLL Name:'").arg(peExecutableFileName).toLocal8Bit(), "r");
++    if (!f) {
++        if (errorMessage)
++            *errorMessage = QString::fromLocal8Bit(strerror(errno));
++        return false;
++    }
++
++    QByteArray output;
++    for (;;) {
++        char buf[1024];
++        int r = fread(buf, sizeof(char), sizeof(buf), f);
++        if (r <= 0) {
++            if (feof(f)) {
++                break;
++            } else {
++                if (errorMessage)
++                    *errorMessage = QString::fromLocal8Bit(strerror(errno));
++                pclose(f);
++                return false;
++            }
++        }
++        output.append(buf, r);
++    }
++    pclose(f);
++
++    QStringList libs;
++    QByteArray prefix("\tDLL Name: ");
++    //    QList<QByteArray> lines = output.split('\n');
++    for (const QByteArray &line : output.split('\n')) {
++      libs << QString::fromLatin1(line.mid(prefix.size()).trimmed());
++    }
++
++    // XXX Assuming 64bit
++    if (wordSizeIn)
++        *wordSizeIn = 64;
++    // XXX Assuming release
++    if (isDebugIn)
++        *isDebugIn = false;
++    if (dependentLibrariesIn)
++        *dependentLibrariesIn = libs;
++    return true;
+ }
+ 
+ QString findD3dCompiler(Platform, const QString &, unsigned)
