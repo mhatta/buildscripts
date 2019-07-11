@@ -26,6 +26,9 @@ cd ..
 cd qtmultimedia
 git apply --ignore-whitespace ${ROOT_SRC}/../mingw-cross/0003.patch
 cd ..
+cd qtbase
+git apply --ignore-whitespace ${ROOT_SRC}/../mingw-cross/0004.patch
+cd ..
 ./configure -prefix "${ROOT_LIB}/qt5/" -release -opensource -confirm-license -no-dbus -no-qml-debug -no-glib -no-openssl -no-fontconfig -no-icu -qt-pcre -qt-zlib -qt-libpng -qt-libjpeg -opengl desktop -nomake tools -nomake examples -xplatform win32-g++ -device-option "CROSS_COMPILE=/usr/bin/x86_64-w64-mingw32-"
 make ${MAKEOPTS}
 make install
