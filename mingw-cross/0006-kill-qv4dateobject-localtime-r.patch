@@ -1,0 +1,15 @@
+diff --git a/src/qml/jsruntime/qv4dateobject.cpp b/src/qml/jsruntime/qv4dateobject.cpp
+index 21c6a5d06..f801d6699 100644
+--- a/src/qml/jsruntime/qv4dateobject.cpp
++++ b/src/qml/jsruntime/qv4dateobject.cpp
+@@ -343,8 +343,8 @@ static inline double DaylightSavingTA(double t, double /*localTZA*/)
+     // _localtime_64_s returns non-zero on failure
+     if (_localtime64_s(&tmtm, &tt) != 0)
+ #elif !defined(QT_NO_THREAD) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
+-    long int tt = (long int)(t / msPerSecond);
+-    if (!localtime_r((const time_t*) &tt, &tmtm))
++      //    long int tt = (long int)(t / msPerSecond);
++      //    if (!localtime_r((const time_t*) &tt, &tmtm))
+ #else
+     // Returns shared static data which may be overwritten at any time
+     // (for MinGW/Windows localtime is luckily thread safe)

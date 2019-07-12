@@ -28,10 +28,6 @@ cp ${BUILD_OUTPUT}/ricochet.exe .
 cp ${BUILD_OUTPUT}/tor.exe .
 # windeployqt is (hackishly) patched to support reading PE binaries on non-windows
 ${ROOT_LIB}/qt5/bin/windeployqt --qmldir ../../../src/ui/qml ricochet.exe
-
-cp /usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libgcc_s_seh-1.dll .
-cp /usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libstdc++-6.dll .
-
 test -e qmltooling && rm -r qmltooling
 test -e imageformats && rm -r imageformats
 test -e playlistformats && rm -r playlistformats
@@ -42,10 +38,6 @@ mkdir installer
 cd installer
 cp ${BUILD_OUTPUT}/ricochet.exe .
 cp ${BUILD_OUTPUT}/tor.exe .
-
-cp /usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libgcc_s_seh-1.dll .
-cp /usr/lib/gcc/x86_64-w64-mingw32/8.3-win32/libstdc++-6.dll .
-
 cp ../../../packaging/installer/* ../../../icons/ricochet.ico ../../../LICENSE .
 mkdir translation
 #cp -r ../../../translation/{inno,installer_*.isl} translation

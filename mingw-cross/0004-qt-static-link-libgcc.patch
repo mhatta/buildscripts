@@ -1,3 +1,5 @@
+Make Qt statically linked with libgcc_s_seh-1.dll and libstdc++-6.dll.
+
 diff --git a/mkspecs/win32-g++/qmake.conf b/mkspecs/win32-g++/qmake.conf
 index 5e9923357f..0c200eaa57 100644
 --- a/mkspecs/win32-g++/qmake.conf

@@ -1,0 +1,19 @@
+diff --git a/src/corelib/tools/qdatetime.cpp b/src/corelib/tools/qdatetime.cpp
+index 511dbf0db8..c3c5ebd2a1 100644
+--- a/src/corelib/tools/qdatetime.cpp
++++ b/src/corelib/tools/qdatetime.cpp
+@@ -2349,10 +2349,10 @@ static bool qt_localtime(qint64 msecsSinceEpoch, QDate *localDate, QTime *localT
+ #if QT_CONFIG(thread) && defined(_POSIX_THREAD_SAFE_FUNCTIONS)
+     // Use the reentrant version of localtime() where available
+     // as is thread-safe and doesn't use a shared static data area
+-    tm *res = 0;
+-    res = localtime_r(&secsSinceEpoch, &local);
+-    if (res)
+-        valid = true;
++    //    tm *res = 0;
++    //    res = localtime_r(&secsSinceEpoch, &local);
++    //    if (res)
++    //        valid = true;
+ #elif defined(Q_CC_MSVC)
+     if (!_localtime64_s(&local, &secsSinceEpoch))
+         valid = true;

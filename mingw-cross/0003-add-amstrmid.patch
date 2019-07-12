@@ -1,3 +1,5 @@
+Add library containing IID_IMFVideoDeviceID, IID_IMFVideoPresenter, IID_IMFTopologyServiceLookupClient and IID_IMFTopologyServiceLookupClient
+
 diff --git a/src/plugins/directshow/directshow.pro b/src/plugins/directshow/directshow.pro
 index 54d61716..89d47371 100644
 --- a/src/plugins/directshow/directshow.pro

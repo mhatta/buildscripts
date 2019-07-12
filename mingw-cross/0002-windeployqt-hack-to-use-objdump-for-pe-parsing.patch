@@ -1,3 +1,5 @@
+Hackishly use objdump to parse imports in PE executables, allowing windeployqt to work for cross-compile MinGW environments. 
+
 diff --git a/src/shared/winutils/utils.cpp b/src/shared/winutils/utils.cpp
 index 00a20543..2572ea4a 100644
 --- a/src/shared/winutils/utils.cpp

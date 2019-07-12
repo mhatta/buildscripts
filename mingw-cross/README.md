@@ -3,7 +3,9 @@ These scripts will cross-compile Ricochet for Windows from a unixy system with t
 Prerequisites
 -------------
 
-Install the mingw-w64 32bit toolchain, which is often available through package management.
+Install the mingw-w64 64bit toolchain, which is often available through package management.
+
+Debian (as of Buster) needs metapackage `mingw-w64` and others.
 
 Fedora (as of 24) needs the following packages:
 
@@ -14,7 +16,7 @@ mingw32-filesystem mingw32-crt mingw32-headers mingw32-bintuils mingw32-cpp ming
 mingw32-pkg-config mingw32-zlib-static mingw32-winpthreads-static
 ```
 
-The `0001-windeployqt-Hack-to-use-objdump-for-PE-parsing.patch` patch assumes a 32bit release build, and assumes that compiler library DLLs are in `/usr/i686-w64-mingw32/sys-root/mingw/bin/`. If these aren't true, you should modify the patch. A better solution is needed here.
+The `0001-include-libssp-hardcode-mingw-bin-path.patch` patch assumes a 64bit release build, and assumes that compiler library DLLs are in `/usr/x86_64-w64-mingw32/bin/`. If these aren't true, you should modify the patch. A better solution is needed here.
 
 Build dependencies
 ------------------
@@ -47,4 +49,3 @@ Build packages with:
 ```
 
 If successful, the `output` directory will contain `ricochet-VERSION.zip` and `ricochet-VERSION-installer-build.zip` as well as `tor.exe` and `ricochet.exe`. The zip files contain all necessary libraries and files. The `-installer-build.zip` file is not suitable to use directly, but contains everything necessary to build the installer with a copy of Inno Setup.
-

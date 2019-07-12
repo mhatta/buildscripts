@@ -1,3 +1,5 @@
+Include libssp and hardcode the MinGW bin path.
+
 diff --git a/src/windeployqt/main.cpp b/src/windeployqt/main.cpp
 index d0070747..df7ace90 100644
 --- a/src/windeployqt/main.cpp
